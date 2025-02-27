@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// 
+
+// AWS RDS=>username =>admin 
+
+// 4L!HINL9Ao,m => password
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql" // Change to "postgresql" if using PostgreSQL
+  url      = env("DATABASE_URL")
+}
+
+model Device {
+  id        String   @id @default(uuid())
+  name      String
+  deviceIp  String  
+  type      String // (mobile, IoT, vehicle, etc.)
+  status    String // (active, inactive)
+  createdAt DateTime @default(now())
+}
+
+model Location {
+  id        String   @id @default(uuid())
+  deviceIp  String
+  latitude  Float
+  longitude Float
+  timestamp DateTime @default(now())
+}
